@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rabbit's Quest: Love in the Farmyard</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="startContainer" style="display: flex">
+      <div class="namingContainer">
+        <h1>Rabbit'S Quest</h1>
+        <p>Love in the Farmyard</p>
+      </div>
+      <div class="playContainer">
+        <button class="startButton">Start Game</button>
+      </div>
+    </div>
+    <div class="storyContainer" style="display: none">
+      <div class="imageWrapper1">
+        <div class="textContainer">You Have To Collect More Than 25 Roses To Be My Friend..</div>
+        <img src="./images/hi.png" class="storyImage" alt="Image 1" />
+      </div>
+      <div class="imageWrapper2">
+        <div class="textContainer">OK!! I Will Make You Proud.</div>
+        <img src="./images/love.png" class="storyImage" alt="Image 2" />
+      </div>
+    </div>
+    <div class="gameContainer" style="display: none">
+        <h1 style="margin-top: 20px;">SCORE: <span class="score">0</span></h1>
+      <div class="gameAreaContainer">
+        <img src="./images/cactus.png" class="runtimeImage1" alt="Image 3" style="display: none"/>
+        <img src="./images/rose.png" class="runtimeImage2" alt="Image 4" style="display: none"/>
+        <img src="./images/water.png" class="runtimeImage3" alt="Image 5" style="display: none"/>
+        <img src="./images/over-action-rabbit-hearts.gif" class="runningRabbit" alt="Example GIF" width="150" height="150">
+      </div>
+      <div class="jumpContainer">
+        <button class="jumpButton">Jump</button>
+      </div>
+    </div>
+    <div class="endContainer" style="display: none">
+      <div class="imageWrapper1">
+        <div class="textContainer1"></div>
+        <img src="./images/hi.png" class="storyImage" alt="Image 1" />
+      </div>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
