@@ -5,12 +5,13 @@ const gameContainer = document.querySelector(".gameContainer");
 const endContainer = document.querySelector(".endContainer");
 const jumpButton = document.querySelector(".jumpButton");
 const runningRabbit = document.querySelector(".runningRabbit");
-const runtimeImage2 = document.querySelector(".runtimeImage2");
 const runtimeImage1 = document.querySelector(".runtimeImage1");
+const runtimeImage2 = document.querySelector(".runtimeImage2");
 const runtimeImage3 = document.querySelector(".runtimeImage3");
 const scoreDisplay = document.querySelector(".score");
-const textContainer_1 = document.querySelector(".textContainer1");
+const textContainer1 = document.querySelector(".textContainer1");
 let score = 0;
+let gameInterval, imageChangeInterval;
 
 startButton.addEventListener("click", function () {
   startContainer.style.display = "none";
@@ -18,38 +19,29 @@ startButton.addEventListener("click", function () {
   setTimeout(function () {
     storyContainer.style.display = "none";
     gameContainer.style.display = "flex";
-    setInterval(changeImage, 2000);
+    imageChangeInterval = setInterval(changeImage, 2000);
+    gameInterval = setInterval(gamePlay, 1000);
   }, 5000);
 });
 
 function changeImage() {
   if (gameContainer.style.display === "flex") {
-    const runtimeImage1 = document.querySelector(".runtimeImage1");
-    const runtimeImage2 = document.querySelector(".runtimeImage2");
-    const runtimeImage3 = document.querySelector(".runtimeImage3");
     runtimeImage1.style.display = "none";
     runtimeImage2.style.display = "none";
     runtimeImage3.style.display = "none";
     const randomNumber = Math.floor(Math.random() * 3);
     if (randomNumber === 0) {
       runtimeImage1.style.display = "flex";
-      runtimeImage2.style.display = "none";
-      runtimeImage3.style.display = "none";
     } else if (randomNumber === 1) {
       runtimeImage2.style.display = "flex";
-      runtimeImage1.style.display = "none";
-      runtimeImage3.style.display = "none";
     } else if (randomNumber === 2) {
       runtimeImage3.style.display = "flex";
-      runtimeImage1.style.display = "none";
-      runtimeImage2.style.display = "none";
     }
   }
 }
 
 jumpButton.addEventListener("click", function () {
   runningRabbit.classList.add("jump");
-
   setTimeout(function () {
     runningRabbit.classList.remove("jump");
   }, 500);
@@ -68,12 +60,11 @@ function getElementCoordinates(element) {
 function checkCollision(element1, element2) {
   const rect1 = getElementCoordinates(element1);
   const rect2 = getElementCoordinates(element2);
-
   return !(
-    (rect1.right - 0.8) < rect2.left ||
-    (rect1.left - 0.8) > rect2.right ||
-    (rect1.bottom - 0.8)< rect2.top ||
-    (rect1.top - 0.8) > rect2.bottom
+    rect1.right < rect2.left ||
+    rect1.left > rect2.right ||
+    rect1.bottom < rect2.top ||
+    rect1.top > rect2.bottom
   );
 }
 
@@ -82,20 +73,16 @@ function gamePlay() {
     score++;
     scoreDisplay.textContent = score;
   }
-  if(checkCollision(runningRabbit, runtimeImage1) || checkCollision(runningRabbit, runtimeImage3)){
+  if (checkCollision(runningRabbit, runtimeImage1) || checkCollision(runningRabbit, runtimeImage3)) {
+    clearInterval(gameInterval);
+    clearInterval(imageChangeInterval);
     startContainer.style.display = "none";
     gameContainer.style.display = "none";
     storyContainer.style.display = "none";
     endContainer.style.display = "flex";
-    if (score > 25) {
-      textContainer_1.textContent = 'You Did It! Let Us Meet';
-    } else {
-      textContainer_1.textContent = 'Please, Try Again For Me!!!';
-    }
+    textContainer1.textContent = score > 25 ? 'You Did It! Let Us Meet' : 'Please, Try Again For Me!!!';
     setTimeout(function () {
-      location.reload();
+      history.go(0);
     }, 5000);
   }
 }
-
-setInterval(gamePlay,1000);
